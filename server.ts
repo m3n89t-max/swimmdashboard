@@ -20,8 +20,6 @@ app.prepare().then(() => {
     cors: { origin: '*', methods: ['GET', 'POST'] },
   });
 
-  globalThis._io = io;
-
   io.on('connection', (socket) => {
     console.log(`[Socket] 연결: ${socket.id}`);
 
