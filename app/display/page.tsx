@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useGameStore } from '@/store/useGameStore';
 import { getSocket } from '@/lib/socket';
+import { speakWhenReady } from '@/lib/tts';
 import type { Heat, DisplayMode, RecordUpdatePayload } from '@/types';
 import ResultsBoard from '@/components/display/ResultsBoard';
 import WaitingBoard from '@/components/display/WaitingBoard';
@@ -19,8 +20,6 @@ export default function DisplayPage() {
     updateRecord,
     setDisplayMode,
   } = useGameStore();
-
-  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const socket = getSocket();
@@ -39,10 +38,9 @@ export default function DisplayPage() {
       setDisplayMode(mode);
     });
 
-    socket.on('announcer:play', (base64: string) => {
-      if (!audioRef.current) audioRef.current = new Audio();
-      audioRef.current.src = `data:audio/mp3;base64,${base64}`;
-      audioRef.current.play().catch(() => {});
+    // 조작부에서 텍스트 수신 → 전광판 브라우저에서 Web Speech API로 재생
+    socket.on('announcer:play', (text: string) => {
+      speakWhenReady(text).catch(console.warn);
     });
 
     // 다음 대기 조 로드
