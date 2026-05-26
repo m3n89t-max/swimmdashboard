@@ -52,7 +52,7 @@ app.prepare().then(() => {
     });
   });
 
-  const PORT = Number(process.env.PORT ?? 3000);
+  const PORT = Number(process.env.PORT ?? 3001);
   httpServer.listen(PORT, () => {
     console.log(`\n🏊 수영대회 전광판 서버 시작: http://localhost:${PORT}`);
     console.log(`   조작부: http://localhost:${PORT}/admin`);
