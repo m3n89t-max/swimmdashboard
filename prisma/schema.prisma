@@ -3,9 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")   // Supabase 커넥션 풀러 (PgBouncer) URL
-  directUrl = env("DIRECT_URL")     // Supabase 직접 연결 URL (마이그레이션 전용)
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 model Event {
