@@ -1,5 +1,3 @@
-'use client';
-
 import { io, Socket } from 'socket.io-client';
 import type { Heat, DisplayMode, RecordUpdatePayload } from '@/types';
 
