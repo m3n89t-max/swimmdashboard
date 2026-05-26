@@ -1,0 +1,18 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { generateAnnouncement } from '@/lib/claude';
+import { synthesizeSpeech } from '@/lib/tts';
+import type { Heat } from '@/types';
+
+export async function POST(req: NextRequest) {
+  try {
+    const body = (await req.json()) as { heat: Heat; type: 'intro' | 'result' };
+
+    const text = await generateAnnouncement(body.heat, body.type);
+    const audio = await synthesizeSpeech(text);
+
+    return NextResponse.json({ ok: true, data: { text, audio } });
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json({ ok: false, error: 'AI 아나운서 오류' }, { status: 500 });
+  }
+}

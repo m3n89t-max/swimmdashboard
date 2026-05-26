@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #030712;
+  --foreground: #f9fafb;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-noto-sans-kr), 'Noto Sans KR', sans-serif;
+}
+
+/* 전광판 전용 — 스크롤바 숨김 */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* 기록 입력 숫자 tabular 정렬 */
+.font-tabular { font-variant-numeric: tabular-nums; }

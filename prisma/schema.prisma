@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id        String   @id @default(cuid())
+  eventNo   Int
+  eventName String
+  heatNo    Int
+  category  String
+  status    String   @default("pending")
+  lanes     Lane[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([eventNo, heatNo])
+  @@index([status])
+}
+
+model Lane {
+  id      String  @id @default(cuid())
+  eventId String
+  event   Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  lane    Int
+  name    String
+  region  String  @default("")
+  team    String
+  record  String?
+  rank    Int?
+  status  String?  // DNS | DQ | DSQ
+
+  @@unique([eventId, lane])
+}
