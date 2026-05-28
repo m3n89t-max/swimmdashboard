@@ -2,13 +2,15 @@ import { NextRequest, NextResponse } from 'next/server';
 import { generateAnnouncement } from '@/lib/claude';
 import type { Heat } from '@/types';
 
-// TTS는 클라이언트 브라우저 Web Speech API로 처리
-// 이 라우트는 Claude AI 텍스트 멘트만 생성해서 반환
 export async function POST(req: NextRequest) {
   try {
-    const body = (await req.json()) as { heat: Heat; type: 'intro' | 'result' };
+    const body = (await req.json()) as {
+      heat: Heat;
+      type: 'intro' | 'result';
+      nextHeat?: Heat;  // 결과 발표 후 다음 조 준비 안내용
+    };
 
-    const text = await generateAnnouncement(body.heat, body.type);
+    const text = await generateAnnouncement(body.heat, body.type, body.nextHeat);
 
     return NextResponse.json({ ok: true, data: { text } });
   } catch (e) {

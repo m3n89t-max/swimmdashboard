@@ -8,7 +8,7 @@ const NAV_ITEMS = [
   { href: '/admin', label: '대시보드', icon: '📊' },
   { href: '/admin/upload', label: '대진표 업로드', icon: '📂' },
   { href: '/admin/control', label: '경기 진행', icon: '🏊' },
-  { href: '/admin/announcer', label: 'AI 아나운서', icon: '🎙️' },
+  { href: '/admin/announcer', label: '안내방송', icon: '📢' },
 ];
 
 export default function AdminNav() {

@@ -12,6 +12,7 @@ interface GameStore {
 
   // Actions
   setCurrentHeat: (heat: Heat) => void;
+  clearCurrentHeat: () => void;
   setNextHeats: (heats: Heat[]) => void;
   setAllHeats: (heats: Heat[]) => void;
   updateRecord: (lane: number, record: string, rank?: number, status?: 'DNS' | 'DQ' | 'DSQ') => void;
@@ -34,6 +35,8 @@ export const useGameStore = create<GameStore>((set) => ({
       // 활성화된 조를 nextHeats에서 제거
       nextHeats: s.nextHeats.filter((h) => h.id !== heat.id),
     })),
+
+  clearCurrentHeat: () => set({ currentHeat: null, displayMode: 'standby' }),
 
   setNextHeats: (heats) => set({ nextHeats: heats }),
 

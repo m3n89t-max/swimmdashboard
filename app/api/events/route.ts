@@ -53,6 +53,7 @@ export async function POST(req: NextRequest) {
                 name: l.name,
                 team: l.team,
                 region: l.region ?? '',
+                notes: l.notes ?? null,
               })),
             },
           },

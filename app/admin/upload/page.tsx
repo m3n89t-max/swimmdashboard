@@ -49,36 +49,62 @@ export default function UploadPage() {
       <h1 className="text-3xl font-black text-white">📂 대진표 업로드</h1>
 
       {/* 엑셀 형식 안내 */}
-      <div className="bg-gray-900 rounded-2xl border border-gray-800 p-6">
-        <h2 className="text-lg font-bold text-yellow-300 mb-4">📋 엑셀 형식 안내</h2>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm text-gray-300">
-            <thead>
-              <tr className="border-b border-gray-700">
-                {['event_no', 'event_name', 'heat_no', 'category', 'lane', 'name', 'team', 'region(선택)'].map((col) => (
-                  <th key={col} className="text-left py-2 px-3 text-cyan-400 font-mono font-semibold">
-                    {col}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="text-gray-400">
-                <td className="py-2 px-3">1</td>
-                <td className="py-2 px-3">남자 자유형 50m</td>
-                <td className="py-2 px-3">1</td>
-                <td className="py-2 px-3">일반부</td>
-                <td className="py-2 px-3">3</td>
-                <td className="py-2 px-3">홍길동</td>
-                <td className="py-2 px-3">서울</td>
-                <td className="py-2 px-3">S14</td>
-              </tr>
-            </tbody>
-          </table>
+      <div className="bg-gray-900 rounded-2xl border border-gray-800 p-6 space-y-4">
+        <h2 className="text-lg font-bold text-yellow-300">📋 엑셀 형식 안내</h2>
+
+        {/* 섹션 헤더 예시 */}
+        <div>
+          <p className="text-xs text-gray-500 mb-1">① 종목 헤더 행 (종목번호 + 종목명)</p>
+          <div className="bg-gray-800 rounded-lg px-4 py-2 font-mono text-cyan-300 text-sm">
+            101&nbsp;&nbsp;&nbsp;계영 100M S14/비장애 중등,고등 통합
+          </div>
         </div>
-        <p className="text-xs text-gray-500 mt-3">
-          • lane: 1~8 정수 · record: mm:ss.hh 형식 · 같은 조 내 레인 번호 중복 불가
-        </p>
+
+        {/* 컬럼 헤더 + 데이터 예시 */}
+        <div>
+          <p className="text-xs text-gray-500 mb-1">② 컬럼 헤더 행 + 데이터 행</p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm text-gray-300 border-collapse">
+              <thead>
+                <tr className="border-b border-gray-600">
+                  {['레인', '성명', '소속', '등급', '기록', '순위', '비고'].map((col) => (
+                    <th key={col} className="text-center py-2 px-3 text-yellow-300 font-bold">
+                      {col}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="text-gray-500 border-b border-gray-800">
+                  <td className="text-center py-1 px-3">1</td>
+                  <td className="py-1 px-3 text-gray-600">(빈 레인)</td>
+                  <td className="py-1 px-3"></td>
+                  <td className="py-1 px-3"></td>
+                  <td className="py-1 px-3"></td>
+                  <td className="py-1 px-3"></td>
+                  <td className="py-1 px-3"></td>
+                </tr>
+                <tr className="text-gray-300">
+                  <td className="text-center py-1 px-3">2</td>
+                  <td className="py-1 px-3">배민준, 배연지</td>
+                  <td className="py-1 px-3">니모</td>
+                  <td className="py-1 px-3 text-purple-300">S14, 비장애</td>
+                  <td className="py-1 px-3 text-gray-500">—</td>
+                  <td className="py-1 px-3"></td>
+                  <td className="py-1 px-3">중등</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="text-xs text-gray-500 space-y-1">
+          <p>• 종목 헤더 행: 첫 셀에 종목번호(101, 102…), 나머지 셀에 종목명</p>
+          <p>• 컬럼 헤더: <span className="text-yellow-400">레인 · 성명 · 소속 · 등급 · 기록 · 순위 · 비고</span> (한글 그대로)</p>
+          <p>• 빈 레인: 성명·소속이 모두 비어 있으면 자동 제외</p>
+          <p>• 계영(릴레이): 성명에 &quot;이름1, 이름2&quot; 쉼표 구분</p>
+          <p>• 기록: mm:ss.hh 형식 또는 &apos;-&apos; (대회 전 업로드는 비워도 됨)</p>
+        </div>
       </div>
 
       {/* 파일 업로드 영역 */}

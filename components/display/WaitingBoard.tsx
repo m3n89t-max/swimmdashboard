@@ -62,7 +62,13 @@ export default function WaitingBoard({ heats }: Props) {
                       <span className="w-12 text-center text-2xl font-bold text-cyan-400 shrink-0">
                         {lane.lane}
                       </span>
-                      <span className="flex-1 text-2xl font-bold text-white">{lane.name}</span>
+                      <div className="flex-1 min-w-0">
+                        <span className="text-2xl font-bold text-white block truncate">{lane.name}</span>
+                        {lane.notes && (
+                          <span className="text-sm text-gray-500 block">{lane.notes}</span>
+                        )}
+                      </div>
+                      <span className="text-base text-purple-300 shrink-0">{lane.region || ''}</span>
                       <span className="text-xl text-gray-400 shrink-0">{lane.team}</span>
                     </div>
                   ))}

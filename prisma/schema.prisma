@@ -28,11 +28,12 @@ model Lane {
   event   Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
   lane    Int
   name    String
-  region  String  @default("")
+  region  String  @default("")   // 등급: S14, S7, 비장애 등
   team    String
+  notes   String?                // 비고: 중등, 고등 등
   record  String?
   rank    Int?
-  status  String?  // DNS | DQ | DSQ
+  status  String?                // DNS | DQ | DSQ
 
   @@unique([eventId, lane])
 }

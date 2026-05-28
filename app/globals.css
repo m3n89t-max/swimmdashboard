@@ -19,3 +19,15 @@ body {
 
 /* 기록 입력 숫자 tabular 정렬 */
 .font-tabular { font-variant-numeric: tabular-nums; }
+
+/* 전광판 자막 티커 — 오른쪽에서 왼쪽으로 */
+@keyframes ticker {
+  from { transform: translateX(100vw); }
+  to   { transform: translateX(-100%); }
+}
+
+/* 긴급 공지 팝업 슬라이드 인 */
+@keyframes noticeSlideIn {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

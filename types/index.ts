@@ -1,9 +1,10 @@
 // ─── 레인 ────────────────────────────────────────────────────────────────────
 export interface Lane {
   lane: number;        // 1~8
-  name: string;
-  region: string;      // 지역코드 예: S14
-  team: string;
+  name: string;        // 계영(릴레이)은 쉼표 구분: "배민준, 배연지"
+  region: string;      // 등급: S14, S7, 비장애 등
+  team: string;        // 소속 팀
+  notes?: string;      // 비고: 중등, 고등 등
   record?: string;     // mm:ss.hh  또는 '-'
   rank?: number;
   status?: 'DNS' | 'DQ' | 'DSQ';
@@ -55,12 +56,13 @@ export interface ApiResponse<T> {
 
 // ─── 엑셀 업로드 행 ───────────────────────────────────────────────────────────
 export interface ExcelRow {
-  event_no: number;
-  event_name: string;
-  heat_no: number;
-  category: string;
-  lane: number;
-  name: string;
-  team: string;
-  region?: string;
+  event_no: number;     // 종목번호 (예: 101, 102)
+  event_name: string;   // 종목명 (예: 계영 100M S14/비장애 중등,고등 통합)
+  heat_no: number;      // 조 번호
+  category: string;     // 부문 (예: 일반부, 중등,고등 통합)
+  lane: number;         // 레인 (1~8)
+  name: string;         // 성명 (계영은 "이름1, 이름2")
+  team: string;         // 소속
+  region?: string;      // 등급 (S14, S7, 비장애 등)
+  notes?: string;       // 비고 (중등, 고등 등)
 }

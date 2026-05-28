@@ -36,8 +36,41 @@ app.prepare().then(() => {
       socket.broadcast.emit('display:mode', mode);
     });
 
+    // 경기 진행용 TTS (남성 중후한 목소리)
     socket.on('announcer:play', (text: string) => {
       socket.broadcast.emit('announcer:play', text);
+    });
+
+    // 긴급 공지용 TTS (여성 선명한 목소리) — 별도 채널
+    socket.on('announcer:emergency', (text: string) => {
+      socket.broadcast.emit('announcer:emergency', text);
+    });
+
+    socket.on('announcer:stop', () => {
+      io.emit('announcer:stop');
+    });
+
+    socket.on('subtitle:update', (text: string) => {
+      socket.broadcast.emit('subtitle:update', text);
+    });
+
+    // ── 배경 음악 ─────────────────────────────────────────────────────────────
+    socket.on('music:load', (data: { src: string; volume: number }) => {
+      socket.broadcast.emit('music:load', data);
+    });
+    socket.on('music:play', () => { socket.broadcast.emit('music:play'); });
+    socket.on('music:pause', () => { socket.broadcast.emit('music:pause'); });
+    socket.on('music:stop', () => { socket.broadcast.emit('music:stop'); });
+    socket.on('music:volume', (vol: number) => { socket.broadcast.emit('music:volume', vol); });
+    socket.on('music:duck', (vol: number) => { socket.broadcast.emit('music:duck', vol); });
+
+    // 긴급 팝업
+    socket.on('emergency:show', (text: string) => {
+      io.emit('emergency:show', text);   // 조작부 포함 전체 전송
+    });
+
+    socket.on('emergency:hide', () => {
+      io.emit('emergency:hide');
     });
 
     // 전광판 → 조작부

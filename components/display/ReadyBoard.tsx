@@ -18,17 +18,23 @@ export default function ReadyBoard({ nextHeat }: Props) {
       </div>
 
       {/* 다음 종목 정보 */}
-      <div className="bg-gray-900 border-2 border-yellow-400 rounded-3xl px-16 py-8 w-full max-w-4xl">
-        <p className="text-3xl text-yellow-300 font-bold text-center mb-2">
+      <div className="bg-gray-900 border-2 border-yellow-400 rounded-3xl px-16 py-8 w-full max-w-5xl">
+        <p className="text-3xl text-yellow-300 font-bold text-center mb-3">
           제{nextHeat.eventNo}종목 · {nextHeat.heatNo}조
         </p>
-        <p className="text-5xl font-black text-white text-center mb-6">
+        {/* 종목명 — 길면 자동 축소 */}
+        <p
+          className="font-black text-white text-center mb-3 leading-tight break-keep"
+          style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
+        >
           {nextHeat.eventName}
         </p>
-        <p className="text-2xl text-gray-400 text-center mb-8">{nextHeat.category}</p>
+        {nextHeat.category && (
+          <p className="text-2xl text-gray-400 text-center mb-8">{nextHeat.category}</p>
+        )}
 
         {/* 선수 그리드 */}
-        <div className="grid grid-cols-4 gap-4">
+        <div className={`grid gap-4 ${nextHeat.lanes.length <= 4 ? 'grid-cols-4' : 'grid-cols-4'}`}>
           {[...nextHeat.lanes]
             .sort((a, b) => a.lane - b.lane)
             .map((lane) => (
@@ -37,8 +43,8 @@ export default function ReadyBoard({ nextHeat }: Props) {
                 className="bg-gray-800 rounded-xl p-4 text-center border border-gray-700"
               >
                 <p className="text-2xl font-bold text-cyan-400 mb-1">{lane.lane}번 레인</p>
-                <p className="text-2xl font-bold text-white">{lane.name}</p>
-                <p className="text-lg text-gray-400">{lane.team}</p>
+                <p className="text-xl font-bold text-white leading-snug break-keep">{lane.name}</p>
+                <p className="text-lg text-gray-400 mt-1">{lane.team}</p>
               </div>
             ))}
         </div>
